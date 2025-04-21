@@ -4,7 +4,7 @@ const {
 } = require('../controllers/book-controller');
 
 // create Express Router
-const router = express();
+const router = express.Router();
 
 // define routes
 router.get('/get', getAllBooks);
