@@ -14,10 +14,6 @@ app.use(express.json());
 // routes
 app.use("/api/books", bookRoutes);
 
-app.get("/api/books", (req, res) => {
-    res.send('Hello World!');
-});
-
 // Port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
