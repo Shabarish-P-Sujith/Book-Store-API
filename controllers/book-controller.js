@@ -88,6 +88,22 @@ const updateSingleBookById = async (req,res) => {
     }
 }
 
+const deleteAllBooks = async (req,res) => {
+    try {
+        const deleteBooks = await Book.deleteMany({});
+        res.status(200).json({
+            success: true,
+            message: 'Books deleted successfully',
+            data: deleteBooks
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to delete all the Books",
+            error: error.message
+        });
+    }
+}
+
 const deleteSingleBookById = async (req,res) => {
     try {
         const deleteBookId = req.params.id;
@@ -113,4 +129,4 @@ const deleteSingleBookById = async (req,res) => {
     }
 }
 
-module.exports = { getAllBooks, getSingleBookById, addNewBook, updateSingleBookById, deleteSingleBookById };
+module.exports = { getAllBooks, getSingleBookById, addNewBook, updateSingleBookById, deleteAllBooks, deleteSingleBookById };
