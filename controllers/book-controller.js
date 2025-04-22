@@ -3,18 +3,11 @@ const Book = require('../models/book')
 const getAllBooks = async (req,res) => {
     try {
         const allBooks = await Book.find({});
-        if (allBooks?.length > 0) {
             res.status(200).json({
                 success: true,
                 message: 'Books retrieved successfully',
                 data: allBooks
             });
-        } else {
-            res.status(400).json({
-                success: false,
-                message: 'Books cannot be retrieved',
-            });
-        }
     } catch (error) {
         res.status(500).json({
             message: "Failed To fetch all the Books",
@@ -24,11 +17,19 @@ const getAllBooks = async (req,res) => {
 }
 
 const getSingleBookById = async (req,res) => {
-    const {id} = req.params;
     try {
-        
+        const singleBookId = req.params.id;
+        const singleBook = await Book.findById(singleBookId);
+            res.status(200).json({
+                success: true,
+                message: 'Book retrieved successfully',
+                data: singleBook
+            });
     } catch (error) {
-        
+        res.status(500).json({
+            message: "Failed To fetch the Book",
+            error: error.message
+        });
     }
 }
 
