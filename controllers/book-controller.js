@@ -27,7 +27,7 @@ const getSingleBookById = async (req,res) => {
                 message: 'Book not found',
             });
         }
-        
+
         res.status(200).json({
             success: true,
             message: 'Book retrieved successfully',
@@ -61,7 +61,31 @@ const addNewBook = async (req,res) => {
 }
 
 const updateSingleBookById = async (req,res) => {
-    
+    try {
+        const updatedBookFormData = req.body;
+        const updateBookId = req.params.id;
+        const updateBook = await Book.findByIdAndUpdate(updateBookId, updatedBookFormData, {
+            new: true
+        });
+        
+        if (!updateBook) {
+            return res.status(404).json({
+                success: false,
+                message: 'Book not found',
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Book updated successfully',
+            data: updateBook
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to update the Book",
+            error: error.message
+        });
+    }
 }
 
 const deleteSingleBookById = async (req,res) => {
